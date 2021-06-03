@@ -20,7 +20,7 @@ FILENAME=creact
 #Directory of binary files
 BIN=./bin
 #Directory of .h files
-INCLUDE=./includes
+INCLUDE=./include
 #Directory of object files
 OBJ=./obj
 #Directory of .c files
@@ -31,7 +31,7 @@ LIB=./libs
 RC=./resources
 
 #Compiler flags
-FLAGS= -o
+FLAGS= -g -Wall
 #Project libs
 #Examples: -lconio -lpthread
 LIB_FLAGS=
@@ -56,7 +56,7 @@ all: compile $(FILENAME)
 compile: $(OBJ_FILES)
 
 #Make .o file macro
-$(OBJ)/%.o: $(SRC)/%.c $(INCLUDE)/%.h
+$(OBJ)/%.o: $(SRC)/%.c
 	$(COMPILER) $(VERSION) $(FLAGS) -c $< -I $(INCLUDE) -o $@
 
 #Make final binary macro
