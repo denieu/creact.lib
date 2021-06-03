@@ -1,41 +1,21 @@
 //Includes
 #include "../include/creact.h"
+#include "../include/fix.h"
 
 //Constants
 
 //Variables
-#ifdef __MINGW32__
-unsigned char _enableColors = 0;
-#else
-unsigned char _enableColors = 1;
-#endif
 unsigned char _textColor = 30;
 unsigned char _bgColor = 37;
 
 //Functions
-void _cr_windowsColorFix(){
-  if(_enableColors == 0){
-    #ifdef __MINGW32__
-      #define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
-      HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-      if (handle != INVALID_HANDLE_VALUE) {
-        DWORD mode = 0;
-        if (GetConsoleMode(handle, &mode)) {
-          mode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
-          SetConsoleMode(handle, mode);
-        }
-      }
-      _enableColors = 1;
-    #endif
-  }
-}
 void _cr_updateColor(){
-  _cr_windowsColorFix();
+  cr_fixCommands();
   printf("\e[0;%d;%dm", _bgColor, _textColor);
 }
 
 void cr_resetColors(){
-  _cr_windowsColorFix();
+  cr_fixCommands();
   printf("\e[0m");
 }
 
